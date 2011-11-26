@@ -1,13 +1,13 @@
 %define origname clanlib
 %define api 2.2
 %define libmajor 1
-%define libname %mklibname %origname %api %libmajor
-%define develname %mklibname -d %origname %api
+%define libname %mklibname %{origname} %{api} %{libmajor}
+%define develname %mklibname -d %{origname} %{api}
 
 Name:		%{origname}2
 Summary:	The ClanLib Game SDK
-Version:	2.2.9
-Release:	4
+Version:	2.2.12
+Release:	1
 License:	BSD-like
 Group:		System/Libraries
 Source0:	http://www.clanlib.org/download/releases-2.0/ClanLib-%version.tgz
@@ -67,10 +67,11 @@ autoreconf -fi
 %make
 
 %install
+rm -rf %{buildroot}
 %makeinstall_std
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files -n %{libname}
 %defattr(-, root, root)

@@ -7,7 +7,7 @@
 Name:		%{origname}2
 Summary:	The ClanLib Game SDK
 Version:	2.2.12
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		System/Libraries
 Source0:	http://www.clanlib.org/download/releases-2.0/ClanLib-%version.tgz

@@ -1,0 +1,257 @@
+--- Sources/App/Makefile.am.link	2011-06-11 12:21:30.000000000 +0200
++++ Sources/App/Makefile.am	2011-06-11 12:22:59.000000000 +0200
+@@ -10,5 +10,7 @@
+   -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE) \
+   $(extra_LIBS_clanApp)
+ 
++libclan22App_la_LIBADD = $(top_builddir)/Sources/Core/libclan22Core.la
++
+ libclan22App_la_CXXFLAGS=$(clanApp_CXXFLAGS) $(extra_CFLAGS_clanApp)
+ # EOF #
+--- Sources/CSSLayout/Makefile.am.link	2011-06-11 13:04:00.000000000 +0200
++++ Sources/CSSLayout/Makefile.am	2011-06-11 13:05:48.000000000 +0200
+@@ -381,9 +381,9 @@
+ 	precomp.h
+ 
+ libclan22CSSLayout_la_LDFLAGS = \
+-  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE) \
+-  $(extra_LIBS_clanCSSLayout)
++  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE)
+ 
++libclan22CSSLayout_la_LIBADD = $(top_builddir)/Sources/Display/libclan22Display.la $(top_builddir)/Sources/Core/libclan22Core.la $(extra_LIBS_clanCSSLayout)
+ libclan22CSSLayout_la_CXXFLAGS=$(clanCSSLayout_CXXFLAGS) $(extra_CFLAGS_clanCSSLayout)
+ # EOF #
+ 
+--- Sources/Core/Makefile.am.link	2011-06-11 06:49:21.000000000 +0200
++++ Sources/Core/Makefile.am	2011-06-11 06:50:46.000000000 +0200
+@@ -164,7 +164,7 @@
+ endif
+ 
+ # FIXME: Hardcoding these here might not be a good idea
+-libclan22Core_la_LIBADD = @LIBPTHREAD@
++libclan22Core_la_LIBADD = @LIBPTHREAD@ -lpthread
+ 
+ libclan22Core_la_LDFLAGS = \
+   -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE) \
+--- Sources/Database/Makefile.am.link	2011-06-11 12:35:31.000000000 +0200
++++ Sources/Database/Makefile.am	2011-06-11 12:35:55.000000000 +0200
+@@ -12,6 +12,8 @@
+   -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE) \
+   $(extra_LIBS_clanDatabase)
+ 
++libclan22Database_la_LIBADD = $(top_builddir)/Sources/Core/libclan22Core.la
++
+ libclan22Database_la_CXXFLAGS=$(clanDatabase_CXXFLAGS) $(extra_CFLAGS_clanDatabase)
+ 
+ # EOF #
+--- Sources/Display/Makefile.am.link	2011-06-11 12:31:12.000000000 +0200
++++ Sources/Display/Makefile.am	2011-06-11 12:33:32.000000000 +0200
+@@ -1,8 +1,9 @@
+ lib_LTLIBRARIES = libclan22Display.la
+ 
++libclan22Display_la_LIBADD = $(top_builddir)/Sources/Core/libclan22Core.la $(clanDisplay_LIBS) -ldl
+ if WIN32
+ else
+-libclan22Display_la_LIBADD = -lpng -ljpeg
++libclan22Display_la_LIBADD += -lpng -ljpeg
+ endif
+ libclan22Display_la_SOURCES = \
+ 	2D/color.cpp \
+--- Sources/GL/Makefile.am.link	2011-06-11 12:43:20.000000000 +0200
++++ Sources/GL/Makefile.am	2011-06-11 12:45:09.000000000 +0200
+@@ -49,8 +49,9 @@
+ 	GLX/opengl_window_provider_glx.h
+ endif
+ libclan22GL_la_LDFLAGS = \
+-  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE) \
+-  $(extra_LIBS_clanGL)
++  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE)
++
++libclan22GL_la_LIBADD = $(top_builddir)/Sources/Display/libclan22Display.la $(top_builddir)/Sources/Core/libclan22Core.la $(extra_LIBS_clanGL) -ldl -lX11
+ 
+ libclan22GL_la_CXXFLAGS=$(clanGL_CXXFLAGS) $(extra_CFLAGS_clanGL)
+ 
+--- Sources/GL1/Makefile.am.link	2011-06-11 12:47:39.000000000 +0200
++++ Sources/GL1/Makefile.am	2011-06-11 12:48:07.000000000 +0200
+@@ -45,6 +45,7 @@
+   -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE) \
+   $(extra_LIBS_clanGL1)
+ 
++libclan22GL1_la_LIBADD = $(top_builddir)/Sources/Display/libclan22Display.la $(top_builddir)/Sources/Core/libclan22Core.la $(extra_LIBS_clanGL1) -ldl -lX11
+ libclan22GL1_la_CXXFLAGS=$(clanGL1_CXXFLAGS) $(extra_CFLAGS_clanGL1)
+ 
+ # EOF #
+--- Sources/GUI/Makefile.am.link	2011-06-11 12:54:44.000000000 +0200
++++ Sources/GUI/Makefile.am	2011-06-11 13:06:42.000000000 +0200
+@@ -117,8 +117,9 @@
+ precomp.h
+ 
+ libclan22GUI_la_LDFLAGS = \
+-  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE) \
+-  $(extra_LIBS_clanGUI)
++  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE)
++
++libclan22GUI_la_LIBADD = $(top_builddir)/Sources/CSSLayout/libclan22CSSLayout.la $(top_builddir)/Sources/Display/libclan22Display.la $(top_builddir)/Sources/Core/libclan22Core.la $(extra_LIBS_clanGUI)
+ 
+ libclan22GUI_la_CXXFLAGS=$(clanGUI_CXXFLAGS) $(extra_CFLAGS_clanGUI)
+ 
+--- Sources/MikMod/Makefile.am.link	2011-06-11 13:15:50.000000000 +0200
++++ Sources/MikMod/Makefile.am	2011-06-11 13:17:09.000000000 +0200
+@@ -8,12 +8,11 @@
+  soundprovider_mikmod.cpp   \
+  soundprovider_mikmod_session.cpp
+ 
+-libclan22MikMod_la_LIBADD = -lmikmod
++libclan22MikMod_la_LIBADD = $(top_builddir)/Sources/Sound/libclan22Sound.la $(top_builddir)/Sources/Core/libclan22Core.la -lmikmod $(extra_LIBS_MikMod)
+ 
+ libclan22MikMod_la_LDFLAGS = \
+-  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE) \
+-  $(extra_LIBS_MikMod)
++  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE)
+ 
+-libclan22Sound_la_CXXFLAGS=$(MikMod_CXXFLAGS) $(extra_CFLAGS_MikMod)
++libclan22MikMod_la_CXXFLAGS=$(MikMod_CXXFLAGS) $(extra_CFLAGS_MikMod)
+ 
+ # EOF #
+--- Sources/Network/Makefile.am.link	2011-06-11 13:13:21.000000000 +0200
++++ Sources/Network/Makefile.am	2011-06-11 13:14:12.000000000 +0200
+@@ -46,9 +46,10 @@
+ endif
+ 
+ libclan22Network_la_LDFLAGS = \
+-  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE) \
+-  $(extra_LIBS_Network)
++  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE)
+ 
+-libclan22Sound_la_CXXFLAGS=$(Network_CXXFLAGS) $(extra_CFLAGS_Network)
++libclan22Network_la_LIBADD = $(top_builddir)/Sources/Core/libclan22Core.la $(extra_LIBS_Network)
++
++libclan22Network_la_CXXFLAGS=$(Network_CXXFLAGS) $(extra_CFLAGS_Network)
+ 
+ # EOF #
+--- Sources/RegExp/Makefile.am.link	2011-06-11 12:39:41.000000000 +0200
++++ Sources/RegExp/Makefile.am	2011-06-11 12:40:59.000000000 +0200
+@@ -6,9 +6,10 @@
+ regexp_match.cpp
+ 
+ libclan22RegExp_la_LDFLAGS = \
+-  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE) \
+-  $(extra_LIBS_RegExp)
++  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE)
+ 
+-libclan22Sound_la_CXXFLAGS=$(RegExp_CXXFLAGS) $(extra_CFLAGS_RegExp)
++libclan22RegExp_la_LIBADD = $(top_builddir)/Sources/Core/libclan22Core.la $(extra_LIBS_clanRegExp)
++
++libclan22RegExpla_CXXFLAGS=$(RegExp_CXXFLAGS) $(extra_CFLAGS_RegExp)
+ 
+ # EOF #
+--- Sources/SWRender/Makefile.am.link	2011-06-11 13:09:00.000000000 +0200
++++ Sources/SWRender/Makefile.am	2011-06-11 13:10:46.000000000 +0200
+@@ -70,8 +70,9 @@
+ swr_target.cpp
+ 
+ libclan22SWRender_la_LDFLAGS = \
+-  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE) \
+-  $(extra_LIBS_SWRender)
++  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE)
++
++libclan22SWRender_la_LIBADD = $(top_builddir)/Sources/Display/libclan22Display.la $(clanDisplay_LIBS) $(top_builddir)/Sources/Core/libclan22Core.la $(extra_LIBS_SWRender)
+ 
+ libclan22Sound_la_CXXFLAGS=$(SWRender_CXXFLAGS) $(extra_CFLAGS_SWRender)
+ 
+--- Sources/Sound/Makefile.am.link	2011-06-11 12:34:36.000000000 +0200
++++ Sources/Sound/Makefile.am	2011-06-11 12:35:01.000000000 +0200
+@@ -59,6 +59,8 @@
+   -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE) \
+   $(extra_LIBS_clanSound)
+ 
++libclan22Sound_la_LIBADD = $(top_builddir)/Sources/Core/libclan22Core.la
++
+ libclan22Sound_la_CXXFLAGS=$(clanSound_CXXFLAGS) $(extra_CFLAGS_clanSound)
+ # EOF #
+ 
+--- Sources/Sqlite/Makefile.am.link	2011-06-11 12:37:26.000000000 +0200
++++ Sources/Sqlite/Makefile.am	2011-06-11 12:39:16.000000000 +0200
+@@ -13,6 +13,8 @@
+   -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE) \
+   $(extra_LIBS_Sqlite)
+ 
+-libclan22Sound_la_CXXFLAGS=$(Sqlite_CXXFLAGS) $(extra_CFLAGS_Sqlite)
++libclan22Sqlite_la_LIBADD = $(top_builddir)/Sources/Database/libclan22Database.la $(top_builddir)/Sources/Core/libclan22Core.la -ldl -lpthread
++
++libclan22Sqlite_la_CXXFLAGS=$(Sqlite_CXXFLAGS) $(extra_CFLAGS_Sqlite)
+ 
+ # EOF #
+--- Sources/Vorbis/Makefile.am.link	2011-06-11 13:17:43.000000000 +0200
++++ Sources/Vorbis/Makefile.am	2011-06-11 13:19:10.000000000 +0200
+@@ -5,12 +5,11 @@
+ 	soundprovider_vorbis.cpp \
+ 	soundprovider_vorbis_session.cpp
+ 
+-libclan22Vorbis_la_LIBADD = -logg -lvorbis
++libclan22Vorbis_la_LIBADD = $(top_builddir)/Sources/Sound/libclan22Sound.la $(top_builddir)/Sources/Core/libclan22Core.la -logg -lvorbis $(extra_LIBS_Vorbis)
+ 
+ libclan22Vorbis_la_LDFLAGS = \
+-  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE) \
+-  $(extra_LIBS_Vorbis)
++  -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) $(LDFLAGS_LT_RELEASE)
+ 
+-libclan22Sound_la_CXXFLAGS=$(Vorbis_CXXFLAGS) $(extra_CFLAGS_Vorbis)
++libclan22Vorbis_la_CXXFLAGS=$(Vorbis_CXXFLAGS) $(extra_CFLAGS_Vorbis)
+ 
+ # EOF #
+--- configure.ac.link	2011-04-27 08:59:22.000000000 +0200
++++ configure.ac	2011-06-11 18:34:25.000000000 +0200
+@@ -632,16 +632,12 @@
+ CXXFLAGS="$CXXFLAGS -I\$(top_srcdir)/Sources"
+ 
+ dnl Modules which will be build
+-ClanLib_Modules="App"
+-ClanLib_pkgconfig="clanApp.pc"
+-
+-dnl API header files for the Modules which will be installed
+-ClanLib_API_Modules="$ClanLib_API_Modules \$(clanApp_includes)"
++CLANLIB_ENABLE_MODULES(Core)
++CLANLIB_ENABLE_MODULES(App)
+ 
+ dnl Default examples which will be build
+ dnl (Currently Disabled)
+ ClanLib_Examples=""
+-CLANLIB_ENABLE_MODULES(Core)
+ 
+ if test "$enable_clanDisplay" = "yes"; then
+ 	CLANLIB_ENABLE_MODULES(Display)
+@@ -670,14 +666,14 @@
+ 	CLANLIB_ENABLE_MODULES(GL1)
+ fi
+ 
++if test "$enable_clanCSSLayout" = "yes"; then
++        CLANLIB_ENABLE_MODULES(CSSLayout)
++fi
++		
+ if test "$enable_clanGUI" = "yes"; then
+ 	CLANLIB_ENABLE_MODULES(GUI)
+ fi
+ 
+-if test "$enable_clanCSSLayout" = "yes"; then
+-	CLANLIB_ENABLE_MODULES(CSSLayout)
+-fi
+-
+ if test "$enable_clanSWRender" = "yes"; then
+ 	CLANLIB_ENABLE_MODULES(SWRender)
+ fi
+@@ -796,14 +792,12 @@
+ AC_SUBST(ClanLib_Examples)
+ 
+ AC_CONFIG_FILES([
+-		Setup/pkgconfig/clanApp.pc
+ 		Setup/pkgconfig/Makefile
+ 		Makefile
+ 		Examples/Makefile
+ 		Examples/Makefile.conf
+ 		Setup/Makefile
+ 		Sources/API/Makefile
+-		Sources/App/Makefile
+ 		Sources/Makefile
+ 		Tests/Makefile.conf
+ 		])

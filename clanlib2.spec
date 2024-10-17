@@ -12,7 +12,7 @@ License:	BSD-like
 Group:		System/Libraries
 Source0:	http://www.clanlib.org/download/releases-2.0/ClanLib-%version.tgz
 Patch0:		ClanLib-2.2.9-link.patch
-URL:		http://www.clanlib.org/
+URL:		https://www.clanlib.org/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:	GL-devel
 BuildRequires:	libx11-devel

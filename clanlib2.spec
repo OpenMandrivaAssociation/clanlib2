@@ -14,6 +14,11 @@ Source0:	http://www.clanlib.org/download/releases-2.0/ClanLib-%version.tgz
 Patch0:		ClanLib-2.2.9-link.patch
 URL:		https://www.clanlib.org/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	GL-devel
 BuildRequires:	libx11-devel
 BuildRequires:	alsa-lib-devel
